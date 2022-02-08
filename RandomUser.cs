@@ -10,6 +10,25 @@ namespace RandomUserLibrary
 {
     public class RandomUser
     {
+        /// <summary>
+        /// Permette di ottenere la Root della stringa Json ottenuta tramite https://randouser.me/api 
+        /// tramite una richiesta asincrona
+        /// </summary>
+        /// <param name="n">Numero di richieste da fare (Di default impostate ad 1)</param>
+        /// <returns>Root Object</returns>
+        public async Task<RootObject> GetUsersAsync(int n = 1)
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://api.randomuser.me");
+            HttpResponseMessage response = await client.GetAsync("https://randomuser.me/api/?results=" + n);
+            response.EnsureSuccessStatusCode();
+
+            var stringResult = await response.Content.ReadAsStringAsync();
+            RootObject root = JsonConvert.DeserializeObject<RootObject>(stringResult);
+            return root;
+        }
+
+
         public class Name
         {
             public string title { get; set; }
