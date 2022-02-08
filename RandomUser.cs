@@ -10,7 +10,6 @@ namespace RandomUserLibrary
 {
     public class RandomUser
     {
-        
         public class Name
         {
             public string title { get; set; }
